@@ -1,0 +1,75 @@
+/* Contact */
+.contact {
+  padding:3rem 0;
+  background:linear-gradient(180deg,white,#f7fbfc)
+}
+.map-box {
+  /* flex: 1 1 300px;
+  display: flex;
+  justify-content: center; */
+  width: 100%;
+  /* background: #0b2745;     your blue shade */
+  background: black;
+  padding: 0;              /* remove default spacing */
+}
+#contactForm {
+  flex: 1 1 300px;
+}
+.map-box iframe {
+  /* border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1); */
+  width: 100%;
+  height: 1000px;           /* pick a height that looks good */
+  border: 0;               /* remove iframe border */
+  display: block;          /* remove any inline gap */
+}
+#contactForm input, #contactForm textarea {
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  padding: 0.75rem;
+  transition: box-shadow 0.2s;
+}
+#contactForm input:focus, #contactForm textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(13, 202, 240, 0.3);
+  /* border-color: #0dcaf0; */
+  border-color:#061424;
+}
+#contactForm button {
+  background:#061424;
+  border: none;
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+#contactForm button:hover {
+  background: #0bb8d1;
+}
+
+form {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:0.75rem
+}
+form .full {
+  grid-column:1/-1
+}
+input,textarea {
+  padding:0.75rem;
+  border-radius:8px;
+  border:1px solid #e6eef5;
+  font-size:0.95rem
+}
+textarea {
+  min-height:140px;
+  resize:vertical
+}
+.submit {
+  background:var(--primary);
+  color:white;
+  padding:0.85rem;
+  border-radius:8px;
+  border:0;
+  font-weight:700
+}

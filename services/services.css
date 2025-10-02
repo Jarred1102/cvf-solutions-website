@@ -1,0 +1,27 @@
+/* Services */
+.services {
+  padding:3rem 0;
+  background:
+    linear-gradient(to bottom, #10304a 0%, transparent 75%, #061424),
+    linear-gradient(180deg, #10304a, #061424);
+}
+.service-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1.25rem
+}
+.card {
+  background:#1EE0E0;
+  padding:1.25rem;
+  border-radius:12px;
+  box-shadow:0 6px 18px rgba(10,20,40,0.04);
+  text-decoration: none;
+  color: inherit;
+}
+.card:hover {
+  transform: scale(1.05);
+  background: white;
+}
+.card h3 {
+  margin-top:0
+}

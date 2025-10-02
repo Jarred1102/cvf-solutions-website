@@ -1,0 +1,43 @@
+/* Slideshow on the right */
+.slideshow-container {
+  flex: 1;
+  position: relative;
+  height: 100%;
+  min-height: 90vh;
+  overflow: hidden;
+}
+
+.slideshow-container img {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+/* active slide visibility */
+.slideshow-container img.active {
+  opacity: 1;
+}
+
+/* subtle fade from blue background into slideshow */
+.slideshow-container::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 25%;
+  height: 100%;
+  background: linear-gradient(to right, #0b2745 0%, transparent 100%);
+  pointer-events: none;
+}
+
+
+/* <div class="hero-card">
+    <h4 style="margin:0 0 0.5rem">Need immediate help?</h4>
+    <p style="margin:0 0 1rem">Call us: <a href="tel:+12023616823" style="color:var(--accent);font-weight:700">(202) 361-6823</a></p>
+    <p style="margin:0 0 1rem;font-size:0.95rem;opacity:0.95">Emergency setup, onsite visits, and remote troubleshooting available.</p>
+    <a href="/contact/contact.html" class="btn-primary">Contact Us</a>
+</div> */

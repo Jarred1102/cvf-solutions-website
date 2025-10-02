@@ -1,0 +1,16 @@
+main {
+  background:
+    linear-gradient(to bottom, #10304a 0%, transparent 75%, #061424),
+    linear-gradient(180deg, #10304a, #061424);
+}
+.about {
+  display: flex;
+  align-items: flex-start;      /* top align */
+  justify-content: space-between;
+  gap: 20px;                    /* space between text and slideshow */
+  margin: 0 auto;               /* center horizontally */
+  padding: 20px;
+  background:
+    linear-gradient(to bottom, #10304a 0%, transparent 75%, #061424),
+    linear-gradient(180deg, #10304a, #061424);
+}
