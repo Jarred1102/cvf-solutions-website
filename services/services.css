@@ -11,7 +11,8 @@
   gap:1.25rem
 }
 .card {
-  background:#1EE0E0;
+  /* background:#1EE0E0; */
+  background: lightgrey;
   padding:1.25rem;
   border-radius:12px;
   box-shadow:0 6px 18px rgba(10,20,40,0.04);

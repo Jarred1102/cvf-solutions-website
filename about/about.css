@@ -14,3 +14,93 @@ main {
     linear-gradient(to bottom, #10304a 0%, transparent 75%, #061424),
     linear-gradient(180deg, #10304a, #061424);
 }
+
+.certifications-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
+  width: 100%;
+  max-width: 800px;             /* limit max width */
+  margin-top: 20px;
+}
+
+/* SAM badge styles (place in your main stylesheet) */
+.sam-badge {
+  --bg: #f8fafb;
+  --border: #dce6ea;
+  --accent: #005ea2;
+  --text: #0b2540;
+  --muted: #6b7785;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  text-decoration: none;
+  box-shadow: 0 1px 3px rgba(11,37,64,0.06);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  transition: transform .06s ease, box-shadow .06s ease;
+}
+
+.sam-badge:focus,
+.sam-badge:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(11,37,64,0.08);
+  outline: none;
+}
+
+.sam-badge__logo {
+  flex: 0 0 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+}
+
+.sam-badge__content {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.sam-badge__title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.01em;
+}
+
+.sam-badge__meta {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  margin-top: 2px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.sam-badge__company {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 160px;
+}
+
+.sam-badge__uei strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* small / compact variant */
+.sam-badge--compact .sam-badge__title { display: none; }
+.sam-badge--compact { padding: 6px 8px; border-radius: 8px; }
+
+/* responsive */
+@media (max-width: 420px) {
+  .sam-badge { gap: 8px; padding: 8px 10px; }
+  .sam-badge__company { max-width: 110px; font-size: 11px; }
+}

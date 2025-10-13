@@ -2,7 +2,9 @@
 
 :root{
 --primary:#0A2540; /* deep blue */
---accent:#1EE0E0; /* bright cyan */
+/* --accent:#1EE0E0; bright cyan */
+/* --accent:#0A2540; deep blue */
+--accent:lightgrey; /* bright cyan */
 --muted:#F6F7FB;
 --glass: rgba(255,255,255,0.06);
 --max-width:1200px;
@@ -75,6 +77,7 @@ header {
   display:flex;
   align-items:center;
   gap:0.75rem;
+  color: grey;
 }
 .brand:hover, .brand:focus {
   text-decoration: none;      /* no underline on hover/focus either */
@@ -82,7 +85,7 @@ header {
 .logo {
   font-family:Poppins, Inter, sans-serif;
   font-weight:700;
-  color:var(--primary);
+  color:grey;
   font-size:1.125rem;
   text-decoration: none;      /* removes underline */
   color: inherit;             /* keep current text color */
