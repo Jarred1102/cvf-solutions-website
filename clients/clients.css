@@ -19,7 +19,8 @@
     box-shadow:0 5px 18px rgba(10,20,40,0.04)
 } */
 .client {
-    background:#1EE0E0;
+    /* background:#1EE0E0; */
+    background: lightgrey;
     padding:1.25rem;
     border-radius:12px;
     box-shadow:0 6px 18px rgba(10,20,40,0.04);
@@ -28,5 +29,6 @@
 }
 .client:hover {
   transform: scale(1.05);
+  transition: transform 0.3s ease; /* smooth scaling */
   background: white;
 }

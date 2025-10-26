@@ -6,10 +6,6 @@
   position: relative;
 }
 
-.btn-primary a:hover {
-  background-color: lightgray;
-}
-
 .container-hero-inner {
   display: flex;
   justify-content: space-between;
@@ -40,12 +36,18 @@
 }
 
 .container-hero-inner .btn-primary {
-  background: #00c2d1;
+  /* background: #00c2d1; */
+  color: black;
+  background: lightgrey;
   padding: 0.9rem 1.8rem;
   border-radius: 6px;
   text-decoration: none;
-  color: #fff;
+  /* color: #fff; */
   font-weight: 600;
+}
+
+.btn-primary:hover {
+  background: grey;
 }
 
 /* Slideshow on the right */
@@ -120,15 +122,6 @@
   font-size: 1.25rem;
   margin-bottom: 2rem;
   line-height: 1.6;
-}
-
-.container-hero-inner .btn-primary {
-  background: #00c2d1;
-  padding: 0.9rem 1.8rem;
-  border-radius: 6px;
-  text-decoration: none;
-  color: #fff;
-  font-weight: 600;
 }
 
 
