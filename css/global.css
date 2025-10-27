@@ -135,7 +135,7 @@ header {
 .cta {
   /* background:var(--accent);
   color:var(--primary); */
-  padding:0.5rem 0.9rem;
+  /* padding:0.5rem 0.9rem; */
   border-radius:8px;
   font-weight:700;
   text-decoration:none
