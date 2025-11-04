@@ -1,9 +1,9 @@
 /* Clients */
 .clients {
     padding:2.5rem 0;
-    background:
+    /* background:
         linear-gradient(to bottom, #10304a 0%, transparent 75%, #061424),
-        linear-gradient(180deg, #10304a, #061424);
+        linear-gradient(180deg, #10304a, #061424); */
 }
 .client-grid {
     display:grid;
