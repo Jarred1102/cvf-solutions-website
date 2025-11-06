@@ -284,60 +284,6 @@ form{grid-template-columns:1fr}
   opacity: 100%;
 }
 
-/* =============================
-   Page Transition Animation (v2)
-   ============================= */
-
-/* html, body {
-  height: 100%;
-  background: transparent; /* keeps your network animation visible 
-  overflow-x: hidden;
-}
-
-body {
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
-              transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Fade out + slide 
-body.fade-out {
-  opacity: 0;
-  transform: translateY(20px);
-}
-
-#transition-overlay {
-  position: fixed;
-  inset: 0;
-  background: #0b2745; /* match your site’s background color instead of white 
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.8s ease-in-out;
-  z-index: 9999;
-}
-
-#transition-overlay.active {
-  opacity: 1;
-  pointer-events: all;
-} */
-
-/* Page fade effect */
-/* #page-content {
-  transition: opacity 0.8s ease-in-out;
-}
-
-#page-content.fade-out {
-  opacity: 0;
-}
-
-/* Optional: subtle logo pulse while forming 
-@keyframes logoPulse {
-  0% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.05); opacity: 0.9; }
-  100% { transform: scale(1); opacity: 1; }
-} */
-
 /* global.css or a new file */
 /* Fade-out and fade-in for main content */
 #page-content {
