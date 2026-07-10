@@ -132,6 +132,19 @@ header {
     height: 2px;
     background: grey;
 }
+
+/* Mobile menu navlinks - dark text on white background */
+#mobileMenu .navlink {
+  color: var(--primary);
+}
+
+#mobileMenu .navlink::after {
+  background: var(--primary);
+}
+
+#mobileMenu .navlink:hover::after {
+  background: grey;
+}
 .cta {
   /* background:var(--accent);
   color:var(--primary); */

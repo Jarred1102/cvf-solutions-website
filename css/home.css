@@ -72,7 +72,7 @@
   }
 
   .slideshow-container {
-    display: none;
+    min-height: 40vh;
   }
 }
 
@@ -99,6 +99,9 @@
   overflow: hidden;
   /* background-color: #0b2745; */
   background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .slideshow-container img {
@@ -115,6 +118,28 @@
 /* active slide visibility */
 .slideshow-container img.active {
   opacity: 1;
+}
+
+/* Mobile: reduce slideshow height */
+@media (max-width: 768px) {
+  .slideshow-container {
+    min-height: 50vh;
+  }
+  
+  .slideshow-container::before {
+    display: none;
+  }
+  
+  .slideshow-container img.active {
+    z-index: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .slideshow-container {
+    min-height: 40vh;
+    z-index: 1;
+  }
 }
 
 /* subtle fade from blue background into slideshow */
