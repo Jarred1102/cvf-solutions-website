@@ -73,3 +73,43 @@ textarea {
   border:0;
   font-weight:700
 }
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .contact {
+    padding: 2rem 0;
+  }
+
+  .map-box iframe {
+    height: 400px;
+  }
+
+  form {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+
+  form .full {
+    grid-column: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact {
+    padding: 1.5rem 0;
+  }
+
+  .map-box iframe {
+    height: 300px;
+  }
+
+  #contactForm input, #contactForm textarea {
+    padding: 0.6rem;
+    font-size: 0.9rem;
+  }
+
+  #contactForm button {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+}

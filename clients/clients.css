@@ -32,3 +32,34 @@
   transition: transform 0.3s ease; /* smooth scaling */
   background: white;
 }
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .clients {
+    padding: 2rem 0;
+  }
+
+  .client-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+
+  .client {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .clients {
+    padding: 1.5rem 0;
+  }
+
+  .client-grid {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .client {
+    padding: 0.75rem;
+  }
+}

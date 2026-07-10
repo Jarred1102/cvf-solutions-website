@@ -99,6 +99,49 @@
 .sam-badge--compact .sam-badge__title { display: none; }
 .sam-badge--compact { padding: 6px 8px; border-radius: 8px; }
 
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .about {
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px;
+  }
+
+  .certifications-grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .about {
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .certifications-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .sam-badge {
+    padding: 8px 10px;
+    gap: 8px;
+  }
+
+  .sam-badge__logo {
+    flex: 0 0 32px;
+  }
+
+  .sam-badge__title {
+    font-size: 11px;
+  }
+
+  .sam-badge__meta {
+    font-size: 10px;
+  }
+}
+
 /* responsive */
 @media (max-width: 420px) {
   .sam-badge { gap: 8px; padding: 8px 10px; }

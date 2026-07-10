@@ -11,7 +11,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  min-height: 100vh;                     /* nearly full screen */
+  min-height: auto;
   gap: 2rem;
   padding-left: 5rem;
 }
@@ -34,6 +34,46 @@
   font-size: 1.25rem;
   margin-bottom: 2rem;
   line-height: 1.6;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .container-hero-inner {
+    flex-direction: column;
+    padding-left: 1rem;
+    gap: 1.5rem;
+  }
+
+  .container-hero-inner > div:first-child {
+    max-width: 100%;
+  }
+
+  .container-hero-inner h1 {
+    font-size: 2rem;
+  }
+
+  .container-hero-inner p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container-hero-inner {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  .container-hero-inner h1 {
+    font-size: 1.5rem;
+  }
+
+  .container-hero-inner p {
+    font-size: 0.9rem;
+  }
+
+  .slideshow-container {
+    display: none;
+  }
 }
 
 .container-hero-inner .btn-primary {
@@ -98,39 +138,7 @@
   z-index: 1;
 }
 
-/* Make the hero full-height and side-by-side */
-.hero {
-  /* background: #0b2745;                  solid fallback color */
-  position: relative;
-}
 
-.container-hero-inner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  min-height: 71.5vh;                     /* nearly full screen */
-  gap: 2rem;
-}
-
-/* Left text area */
-.container-hero-inner > div:first-child {
-  flex: 1;
-  max-width: 45%;
-  color: #fff;
-}
-
-.container-hero-inner h1 {
-  font-size: 3rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  line-height: 1.2;
-}
-
-.container-hero-inner p {
-  font-size: 1.25rem;
-  margin-bottom: 2rem;
-  line-height: 1.6;
-}
 
 
 
