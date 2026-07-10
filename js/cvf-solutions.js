@@ -1,21 +1,21 @@
 // Mobile toggle
 const mobileToggle = document.getElementById('mobileToggle');
 const mobileMenu = document.getElementById('mobileMenu');
-mobileToggle && mobileToggle.addEventListener('click', ()=>{
-    if(mobileMenu.style.display === 'none') mobileMenu.style.display = 'block'; else mobileMenu.style.display = 'none';
+mobileToggle && mobileToggle.addEventListener('click', () => {
+  if (mobileMenu.style.display === 'none') mobileMenu.style.display = 'block'; else mobileMenu.style.display = 'none';
 });
 
 // Smooth scroll for in-page anchors
-document.querySelectorAll('a[href^="#"]').forEach(a=>{
-    a.addEventListener('click', function(e){
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', function (e) {
     const href = this.getAttribute('href');
-    if(href.length > 1){
-        e.preventDefault();
-        document.querySelector(href).scrollIntoView({behavior:'smooth',block:'start'});
-        // close mobile menu
-        if(window.innerWidth <= 900) mobileMenu.style.display = 'none';
+    if (href.length > 1) {
+      e.preventDefault();
+      document.querySelector(href).scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // close mobile menu
+      if (window.innerWidth <= 900) mobileMenu.style.display = 'none';
     }
-    });
+  });
 });
 
 // // Contact form submission (basic)
@@ -57,8 +57,10 @@ document.addEventListener("DOMContentLoaded", () => {
   let idx = 0;
   function nextSlide() {
     slides.forEach(s => s.classList.remove('active'));
-    slides[idx].classList.add('active');
-    idx = (idx + 1) % slides.length;
+    if (slides != null && slides.length > 0) {
+      slides[idx].classList.add('active');
+      idx = (idx + 1) % slides.length;
+    }
   }
   nextSlide();
   setInterval(nextSlide, 5000);
@@ -146,7 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const ctx = canvas.getContext("2d");
   let w, h;
   const particles = [];
-  const logoPoints = [];
+  let logoPoints = [];
   let mode = "free";
   let logoReady = false;
 
@@ -169,117 +171,136 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Load and sample logo
   const logoImg = new Image();
-  logoImg.src = "../images/logo.jpg"; // ensure path correct (relative to page)
+  logoImg.src = "../images/logo.jpg"; // use correct path from your HTML
+  logoImg.crossOrigin = "anonymous"; // allows pixel access if hosted
+
   logoImg.onload = () => {
     const tempCanvas = document.createElement("canvas");
-    const size = Math.min(w, h) * 0.3;
-    tempCanvas.width = size;
-    tempCanvas.height = size;
+    const targetWidth = Math.min(w, h) * 0.35; // about a third of the screen
+    const aspect = logoImg.height / logoImg.width;
+    const targetHeight = targetWidth * aspect;
+
+    tempCanvas.width = targetWidth;
+    tempCanvas.height = targetHeight;
 
     const tctx = tempCanvas.getContext("2d");
-    tctx.drawImage(logoImg, 0, 0, size, size);
-    const data = tctx.getImageData(0, 0, size, size).data;
+    tctx.drawImage(logoImg, 0, 0, targetWidth, targetHeight);
+    const imageData = tctx.getImageData(0, 0, targetWidth, targetHeight).data;
 
-    logoPoints.length = 0;
-    for (let y = 0; y < size; y += 3) {
-      for (let x = 0; x < size; x += 3) {
-        const i = (y * size + x) * 4;
-        const brightness = data[i] + data[i + 1] + data[i + 2];
-        if (brightness < 700) logoPoints.push({ x, y });
+    const points = [];
+    const step = 3; // smaller = higher resolution (more points)
+
+    for (let y = 0; y < targetHeight; y += step) {
+      for (let x = 0; x < targetWidth; x += step) {
+        const i = (y * targetWidth + x) * 4;
+        const r = imageData[i];
+        const g = imageData[i + 1];
+        const b = imageData[i + 2];
+        const brightness = (r + g + b) / 3;
+
+        // Ignore white/near-white background pixels
+        if (brightness < 240) {
+          points.push({ x, y });
+        }
       }
     }
 
-    logoReady = logoPoints.length > 0;
-    console.log(`Logo points ready: ${logoPoints.length}`);
+    // Center the logo
+    const offsetX = w / 2 - targetWidth / 2;
+    const offsetY = h / 2 - targetHeight / 2;
+
+    // Assign points globally
+    logoPoints = points.map(p => ({
+      x: p.x + offsetX,
+      y: p.y + offsetY
+    }));
+
+    console.log(`✅ Generated ${logoPoints.length} logo points.`);
   };
+
+
 
   // --- Logo transition animation ---
-  window.animateLogoTransition = async function () {
-    if (!logoReady) return; // don't try until logo is ready
+//   window.animateLogoTransition = async function () {
+//     if (!logoPoints.length || !particles.length) {
+//       console.warn("⚠️ Logo points or particles not ready");
+//       return;
+//     }
 
-    const ease = (t) => 0.5 - 0.5 * Math.cos(Math.PI * t);
+//     console.log("🔥 Starting logo transition...");
 
-    // Create centered targets
-    const targets = particles.map((_, i) => {
-      const lp = logoPoints[i % logoPoints.length];
-      return {
-        x: lp.x + w / 2 - (Math.min(w, h) * 0.3) / 2,
-        y: lp.y + h / 2 - (Math.min(w, h) * 0.3) / 2,
-      };
-    });
+//     // Assign each particle a random target from the logo shape
+//     for (let i = 0; i < particles.length; i++) {
+//       const p = particles[i];
+//       const target = logoPoints[i % logoPoints.length];
+//       p.tx = target.x;
+//       p.ty = target.y;
+//     }
 
-    // Collapse to logo
-    const collapseDuration = 1500;
-    const startTime = performance.now();
-    await new Promise((resolve) => {
-      const step = (now) => {
-        const t = Math.min((now - startTime) / collapseDuration, 1);
-        const eased = ease(t);
-        for (let i = 0; i < particles.length; i++) {
-          const p = particles[i];
-          const tgt = targets[i];
-          p.x += (tgt.x - p.x) * 0.1 * eased;
-          p.y += (tgt.y - p.y) * 0.1 * eased;
-        }
-        if (t < 1) requestAnimationFrame(step);
-        else resolve();
-      };
-      requestAnimationFrame(step);
-    });
+//     mode = "collapse";
 
-    await new Promise((r) => setTimeout(r, 800)); // pause briefly
+//     // collapse for 1.2s
+//     await new Promise((r) => setTimeout(r, 1200));
 
-    // Disperse outward
-    const disperseDuration = 1500;
-    const disperseStart = performance.now();
-    await new Promise((resolve) => {
-      const step = (now) => {
-        const t = Math.min((now - disperseStart) / disperseDuration, 1);
-        const eased = ease(t);
-        for (let p of particles) {
-          const dx = p.x - w / 2;
-          const dy = p.y - h / 2;
-          p.x += dx * 0.03 * eased;
-          p.y += dy * 0.03 * eased;
-        }
-        if (t < 1) requestAnimationFrame(step);
-        else resolve();
-      };
-      requestAnimationFrame(step);
-    });
-  };
+//     mode = "logo"; // hold for a moment
+//     await new Promise((r) => setTimeout(r, 800));
+
+//     mode = "disperse"; // particles fly away
+//     await new Promise((r) => setTimeout(r, 1000));
+
+//     mode = "free"; // back to normal
+//     console.log("✅ Transition done");
+//   };
+
 
   // --- Draw loop ---
   function draw() {
-    ctx.clearRect(0, 0, w, h);
-    ctx.fillStyle = "rgba(0, 200, 255, 0.6)";
-    ctx.strokeStyle = "rgba(0, 200, 255, 0.2)";
-    for (let i = 0; i < particles.length; i++) {
-      const p = particles[i];
+  ctx.clearRect(0, 0, w, h);
+
+  ctx.fillStyle = "rgba(0, 200, 255, 0.6)";
+  ctx.strokeStyle = "rgba(0, 200, 255, 0.2)";
+  ctx.lineWidth = 1;
+
+  for (let i = 0; i < particles.length; i++) {
+    const p = particles[i];
+
+    if (mode === "logo") {
+      // Move smoothly toward logo target
+      p.x += (p.tx - p.x) * 0.08;
+      p.y += (p.ty - p.y) * 0.08;
+    } else {
+      // Normal free-floating motion
       p.x += p.vx;
       p.y += p.vy;
+
       if (p.x < 0 || p.x > w) p.vx *= -1;
       if (p.y < 0 || p.y > h) p.vy *= -1;
+    }
 
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, 1.5, 0, Math.PI * 2);
-      ctx.fill();
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, 1.5, 0, Math.PI * 2);
+    ctx.fill();
 
-      for (let j = i + 1; j < particles.length; j++) {
-        const q = particles[j];
-        const dx = p.x - q.x;
-        const dy = p.y - q.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 100) {
-          ctx.beginPath();
-          ctx.moveTo(p.x, p.y);
-          ctx.lineTo(q.x, q.y);
-          ctx.stroke();
-        }
+    // Draw connections
+    for (let j = i + 1; j < particles.length; j++) {
+      const q = particles[j];
+      const dx = p.x - q.x;
+      const dy = p.y - q.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      if (dist < 100) {
+        ctx.beginPath();
+        ctx.moveTo(p.x, p.y);
+        ctx.lineTo(q.x, q.y);
+        ctx.stroke();
       }
     }
-    requestAnimationFrame(draw);
   }
+
+  requestAnimationFrame(draw);
+}
+
+
   draw();
 
   // --- Fade and navigation handler ---
@@ -306,32 +327,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
 /* WORKING PAGE FADE IN/OUT TRANSITIONS */
 
-// document.addEventListener("DOMContentLoaded", () => {
-//   const pageContent = document.getElementById("page-content");
+document.addEventListener("DOMContentLoaded", () => {
+  const pageContent = document.getElementById("page-content");
 
-//   // Fade in on page load
-//   pageContent.classList.add("fade-in");
-//   requestAnimationFrame(() => {
-//     pageContent.classList.remove("fade-in");
-//   });
+  // Fade in on page load
+  pageContent.classList.add("fade-in");
+  requestAnimationFrame(() => {
+    pageContent.classList.remove("fade-in");
+  });
 
-//   // Intercept internal link clicks for fade-out
-//   const links = document.querySelectorAll('a[href]:not([href^="#"])');
+  // Intercept internal link clicks for fade-out
+  const links = document.querySelectorAll('a[href]:not([href^="#"])');
 
-//   links.forEach(link => {
-//     link.addEventListener("click", function(e) {
-//       const url = new URL(link.href, window.location.href);
+  links.forEach(link => {
+    link.addEventListener("click", function(e) {
+      const url = new URL(link.href, window.location.href);
 
-//       // Skip external links
-//       if (url.origin !== window.location.origin) return;
+      // Skip external links
+      if (url.origin !== window.location.origin) return;
 
-//       e.preventDefault(); // stop immediate navigation
-//       pageContent.classList.add("fade-out");
+      e.preventDefault(); // stop immediate navigation
+      pageContent.classList.add("fade-out");
 
-//       // After fade-out completes, navigate
-//       pageContent.addEventListener("transitionend", () => {
-//         window.location.href = link.href;
-//       }, { once: true });
-//     });
-//   });
-// });
+      // After fade-out completes, navigate
+      pageContent.addEventListener("transitionend", () => {
+        window.location.href = link.href;
+      }, { once: true });
+    });
+  });
+});
