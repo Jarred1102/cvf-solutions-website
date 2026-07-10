@@ -50,6 +50,7 @@ main {
   max-width:var(--max-width);
   margin:0 auto;
   padding:0 1.25rem;
+  padding-bottom: 5rem;
 }
 
 /* Header */
